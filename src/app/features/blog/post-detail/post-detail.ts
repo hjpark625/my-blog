@@ -1,5 +1,5 @@
-import { Component, computed, inject, input } from '@angular/core';
-import { DatePipe } from '@angular/common'; // date pipe is standalone
+import { Component, computed, inject, input, PLATFORM_ID } from '@angular/core';
+import { DatePipe, isPlatformBrowser } from '@angular/common'; // date pipe is standalone
 import { RouterLink } from '@angular/router';
 import { PostService } from '../../../services/post.service';
 import { MarkdownComponent } from 'ngx-markdown';
@@ -12,6 +12,9 @@ import { MarkdownComponent } from 'ngx-markdown';
 })
 export class PostDetailComponent {
   private postService = inject(PostService);
+  private platformId = inject(PLATFORM_ID);
+
+  isBrowser = isPlatformBrowser(this.platformId);
 
   // Route param 'id' via Input Binding
   id = input.required<string>();
