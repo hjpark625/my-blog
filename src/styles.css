@@ -2,37 +2,121 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
+/* 
+  Design System Tokens
+  Supports automatic OS theme detection and manual override via data-theme attribute.
+*/
+
+/* 1. Base Variables (Shared) */
 :root {
-  /* Atom One Dark Theme Colors (Default / Dark Mode) */
-  --color-bg-primary: #282c34;
-  --color-bg-secondary: #21252b;
-  --color-bg-tertiary: #3a404d;
-
-  --color-text-primary: #abb2bf;
-  --color-text-secondary: #5c6370;
-  --color-text-inverse: #ffffff;
-
-  --color-brand-primary: #61afef; /* Blue */
-  --color-brand-secondary: #98c379; /* Green */
-  --color-brand-accent: #c678dd; /* Purple */
-  --color-brand-warn: #e5c07b; /* Yellow */
-  --color-brand-error: #e06c75; /* Red */
-
-  --color-border: #3e4451;
-  --color-border-hover: #abb2bf;
-
-  /* Typography */
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Spacing & Radius */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 16px;
 }
 
+/* 2. Theme Tokens Definition */
+@theme {
+  --color-bg-primary: var(--color-bg-primary);
+  --color-bg-secondary: var(--color-bg-secondary);
+  --color-bg-tertiary: var(--color-bg-tertiary);
+
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-inverse: var(--color-text-inverse);
+
+  --color-brand-primary: var(--color-brand-primary);
+  --color-brand-secondary: var(--color-brand-secondary);
+  --color-brand-accent: var(--color-brand-accent);
+  --color-brand-warn: var(--color-brand-warn);
+  --color-brand-error: var(--color-brand-error);
+
+  --color-border: var(--color-border);
+  --color-border-hover: var(--color-border-hover);
+}
+
+/* 3. Dark Theme (Default & OS Dark) */
+:root {
+  --color-bg-primary: #21252b;
+  --color-bg-secondary: #282c34;
+  --color-bg-tertiary: #3a404d;
+
+  --color-text-primary: #dcdfe4;
+  --color-text-secondary: #9da5b4;
+  --color-text-inverse: #ffffff;
+
+  --color-brand-primary: #61afef;
+  --color-brand-secondary: #98c379;
+  --color-brand-accent: #c678dd;
+  --color-brand-warn: #e5c07b;
+  --color-brand-error: #e06c75;
+
+  --color-border: #4b5362;
+  --color-border-hover: #abb2bf;
+
+  /* Typography Plugin Overrides (Mapping to Design Tokens) */
+  --tw-prose-body: var(--color-text-secondary);
+  --tw-prose-headings: var(--color-text-primary);
+  --tw-prose-lead: var(--color-text-secondary);
+  --tw-prose-links: var(--color-brand-primary);
+  --tw-prose-bold: var(--color-text-primary);
+  --tw-prose-counters: var(--color-text-secondary);
+  --tw-prose-bullets: var(--color-text-secondary);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-text-primary);
+  --tw-prose-quote-borders: var(--color-brand-primary);
+  --tw-prose-captions: var(--color-text-secondary);
+  --tw-prose-code: var(--color-brand-accent);
+  --tw-prose-pre-code: var(--color-text-primary);
+  --tw-prose-pre-bg: var(--color-bg-secondary);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+}
+
+/* 4. Light Theme (OS Light) */
+@media (prefers-color-scheme: light) {
+  :root {
+    --color-bg-primary: #fafafa;
+    --color-bg-secondary: #ffffff;
+    --color-bg-tertiary: #f0f0f0;
+
+    --color-text-primary: #24292e;
+    --color-text-secondary: #586069;
+    --color-text-inverse: #ffffff;
+
+    --color-brand-primary: #0066cc;
+    --color-brand-secondary: #22863a;
+    --color-brand-accent: #6f42c1;
+    --color-brand-warn: #b08800;
+    --color-brand-error: #cb2431;
+
+    --color-border: #d1d5da;
+    --color-border-hover: #959da5;
+
+    /* Typography Plugin Overrides for Light Mode */
+    --tw-prose-body: var(--color-text-secondary);
+    --tw-prose-headings: var(--color-text-primary);
+    --tw-prose-lead: var(--color-text-secondary);
+    --tw-prose-links: var(--color-brand-primary);
+    --tw-prose-bold: var(--color-text-primary);
+    --tw-prose-counters: var(--color-text-secondary);
+    --tw-prose-bullets: var(--color-text-secondary);
+    --tw-prose-hr: var(--color-border);
+    --tw-prose-quotes: var(--color-text-primary);
+    --tw-prose-quote-borders: var(--color-border);
+    --tw-prose-captions: var(--color-text-secondary);
+    --tw-prose-code: var(--color-brand-accent);
+    --tw-prose-pre-code: var(--color-text-primary);
+    --tw-prose-pre-bg: var(--color-bg-secondary);
+    --tw-prose-th-borders: var(--color-border);
+    --tw-prose-td-borders: var(--color-border);
+  }
+}
+
+/* 5. Manual Overrides (Higher Specificity) */
 [data-theme='light'] {
-  /* Light Mode (Compatible with Atom One Dark spirit) */
   --color-bg-primary: #fafafa;
   --color-bg-secondary: #ffffff;
   --color-bg-tertiary: #f0f0f0;
@@ -41,16 +125,72 @@
   --color-text-secondary: #586069;
   --color-text-inverse: #ffffff;
 
-  --color-brand-primary: #0066cc; /* Darker Blue for contrast */
-  --color-brand-secondary: #22863a; /* Darker Green */
-  --color-brand-accent: #6f42c1; /* Darker Purple */
-  --color-brand-warn: #b08800; /* Darker Yellow */
-  --color-brand-error: #cb2431; /* Darker Red */
+  --color-brand-primary: #0066cc;
+  --color-brand-secondary: #22863a;
+  --color-brand-accent: #6f42c1;
+  --color-brand-warn: #b08800;
+  --color-brand-error: #cb2431;
 
   --color-border: #d1d5da;
   --color-border-hover: #959da5;
+
+  /* Typography Overrides */
+  --tw-prose-body: var(--color-text-secondary);
+  --tw-prose-headings: var(--color-text-primary);
+  --tw-prose-lead: var(--color-text-secondary);
+  --tw-prose-links: var(--color-brand-primary);
+  --tw-prose-bold: var(--color-text-primary);
+  --tw-prose-counters: var(--color-text-secondary);
+  --tw-prose-bullets: var(--color-text-secondary);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-text-primary);
+  --tw-prose-quote-borders: var(--color-border);
+  --tw-prose-captions: var(--color-text-secondary);
+  --tw-prose-code: var(--color-brand-accent);
+  --tw-prose-pre-code: var(--color-text-primary);
+  --tw-prose-pre-bg: var(--color-bg-secondary);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
 }
 
+[data-theme='dark'] {
+  --color-bg-primary: #21252b;
+  --color-bg-secondary: #282c34;
+  --color-bg-tertiary: #3a404d;
+
+  --color-text-primary: #dcdfe4;
+  --color-text-secondary: #9da5b4;
+  --color-text-inverse: #ffffff;
+
+  --color-brand-primary: #61afef;
+  --color-brand-secondary: #98c379;
+  --color-brand-accent: #c678dd;
+  --color-brand-warn: #e5c07b;
+  --color-brand-error: #e06c75;
+
+  --color-border: #4b5362;
+  --color-border-hover: #abb2bf;
+
+  /* Typography Overrides */
+  --tw-prose-body: var(--color-text-secondary);
+  --tw-prose-headings: var(--color-text-primary);
+  --tw-prose-lead: var(--color-text-secondary);
+  --tw-prose-links: var(--color-brand-primary);
+  --tw-prose-bold: var(--color-text-primary);
+  --tw-prose-counters: var(--color-text-secondary);
+  --tw-prose-bullets: var(--color-text-secondary);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-text-primary);
+  --tw-prose-quote-borders: var(--color-brand-primary);
+  --tw-prose-captions: var(--color-text-secondary);
+  --tw-prose-code: var(--color-brand-accent);
+  --tw-prose-pre-code: var(--color-text-primary);
+  --tw-prose-pre-bg: var(--color-bg-secondary);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
+}
+
+/* Global Styles */
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
@@ -79,7 +219,7 @@ a:hover {
   color: var(--color-brand-accent);
 }
 
-/* Scrollbar Styling for Dark Mode feel */
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -95,4 +235,28 @@ a:hover {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-text-secondary);
+}
+
+/* 
+  Force override of Tailwind Typography defaults.
+  The .prose class defines its own colors, so we must target it directly
+  to use our dynamic CSS variables.
+*/
+.prose {
+  --tw-prose-body: var(--color-text-secondary);
+  --tw-prose-headings: var(--color-text-primary);
+  --tw-prose-lead: var(--color-text-secondary);
+  --tw-prose-links: var(--color-brand-primary);
+  --tw-prose-bold: var(--color-text-primary);
+  --tw-prose-counters: var(--color-text-secondary);
+  --tw-prose-bullets: var(--color-text-secondary);
+  --tw-prose-hr: var(--color-border);
+  --tw-prose-quotes: var(--color-text-primary);
+  --tw-prose-quote-borders: var(--color-brand-primary);
+  --tw-prose-captions: var(--color-text-secondary);
+  --tw-prose-code: var(--color-brand-accent);
+  --tw-prose-pre-code: var(--color-text-primary);
+  --tw-prose-pre-bg: var(--color-bg-secondary);
+  --tw-prose-th-borders: var(--color-border);
+  --tw-prose-td-borders: var(--color-border);
 }
