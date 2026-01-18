@@ -1,0 +1,38 @@
+@if (post(); as p) {
+  <div class="container mx-auto max-w-4xl p-4">
+    <div class="mb-6">
+      <a
+        routerLink="/blog"
+        class="mb-4 inline-flex items-center text-blue-600 transition-colors hover:text-blue-800"
+      >
+        &larr; 목록으로 돌아가기
+      </a>
+      <div class="flex items-start justify-between pt-2">
+        <h1 class="mb-2 text-4xl font-bold text-gray-900">{{ p.title }}</h1>
+        <a
+          [routerLink]="['/edit', p.id]"
+          class="rounded bg-gray-100 px-4 py-2 font-semibold text-gray-700 transition-colors hover:bg-gray-200"
+        >
+          수정
+        </a>
+      </div>
+      <div class="mt-4 flex gap-4 border-b border-gray-100 pb-6 text-sm text-gray-500">
+        <span>{{ p.createdAt | date: 'medium' }}</span>
+        <div class="flex gap-2">
+          @for (tag of p.tags; track $index) {
+            <span class="rounded bg-gray-100 px-2 py-0.5 text-xs text-gray-600">{{ tag }}</span>
+          }
+        </div>
+      </div>
+    </div>
+
+    <div class="prose prose-lg prose-slate max-w-none">
+      <markdown [data]="p.content"></markdown>
+    </div>
+  </div>
+} @else {
+  <div class="container mx-auto p-4 py-20 text-center">
+    <p class="mb-4 text-xl text-gray-600">게시글을 찾을 수 없습니다.</p>
+    <a routerLink="/blog" class="text-blue-600 hover:underline">목록으로 돌아가기</a>
+  </div>
+}
