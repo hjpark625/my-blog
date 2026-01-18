@@ -4,7 +4,6 @@ import {
   OnDestroy,
   OnInit,
   forwardRef,
-  inject,
   input,
   viewChild,
   AfterViewInit,
@@ -48,6 +47,8 @@ export class ToastEditorComponent
 
     // Determine initial value: pendingValue > initialValue input > empty string
     const startValue = this.pendingValue !== null ? this.pendingValue : this.initialValue() || '';
+    const isDarkMode =
+      window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
 
     this.editor = new Editor({
       el: this.editorContainer().nativeElement,
@@ -55,6 +56,7 @@ export class ToastEditorComponent
       initialEditType: 'markdown',
       previewStyle: 'vertical',
       initialValue: startValue,
+      theme: isDarkMode ? 'dark' : 'light',
       events: {
         change: () => {
           const markdown = this.editor?.getMarkdown() || '';
