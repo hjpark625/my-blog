@@ -2,7 +2,19 @@ import { RenderMode, ServerRoute } from '@angular/ssr';
 
 export const serverRoutes: ServerRoute[] = [
   {
+    path: 'blog/:id',
+    renderMode: RenderMode.Server,
+  },
+  {
+    path: 'edit/:id',
+    renderMode: RenderMode.Client,
+  },
+  {
+    path: 'write',
+    renderMode: RenderMode.Client,
+  },
+  {
     path: '**',
-    renderMode: RenderMode.Prerender
-  }
+    renderMode: RenderMode.Prerender,
+  },
 ];

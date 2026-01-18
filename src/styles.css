@@ -1,3 +1,98 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
 
-@import "tailwindcss";
+:root {
+  /* Atom One Dark Theme Colors (Default / Dark Mode) */
+  --color-bg-primary: #282c34;
+  --color-bg-secondary: #21252b;
+  --color-bg-tertiary: #3a404d;
+
+  --color-text-primary: #abb2bf;
+  --color-text-secondary: #5c6370;
+  --color-text-inverse: #ffffff;
+
+  --color-brand-primary: #61afef; /* Blue */
+  --color-brand-secondary: #98c379; /* Green */
+  --color-brand-accent: #c678dd; /* Purple */
+  --color-brand-warn: #e5c07b; /* Yellow */
+  --color-brand-error: #e06c75; /* Red */
+
+  --color-border: #3e4451;
+  --color-border-hover: #abb2bf;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* Spacing & Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+}
+
+[data-theme='light'] {
+  /* Light Mode (Compatible with Atom One Dark spirit) */
+  --color-bg-primary: #fafafa;
+  --color-bg-secondary: #ffffff;
+  --color-bg-tertiary: #f0f0f0;
+
+  --color-text-primary: #24292e;
+  --color-text-secondary: #586069;
+  --color-text-inverse: #ffffff;
+
+  --color-brand-primary: #0066cc; /* Darker Blue for contrast */
+  --color-brand-secondary: #22863a; /* Darker Green */
+  --color-brand-accent: #6f42c1; /* Darker Purple */
+  --color-brand-warn: #b08800; /* Darker Yellow */
+  --color-brand-error: #cb2431; /* Darker Red */
+
+  --color-border: #d1d5da;
+  --color-border-hover: #959da5;
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  margin: 0;
+  line-height: 1.5;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+code,
+pre,
+kbd {
+  font-family: var(--font-mono);
+}
+
+a {
+  color: var(--color-brand-primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--color-brand-accent);
+}
+
+/* Scrollbar Styling for Dark Mode feel */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-secondary);
+}
